@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>Foreli — Dashboard</title>
+  <meta name="description" content="Foreli dashboard: anticipate your day, manage tasks, and stay ahead of what's coming.">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="assets/css/feedback.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <a class="logo" href="index.html">foreli<span>.</span></a>
+      </div>
+      <nav class="side-nav" aria-label="Dashboard navigation">
+        <button class="nav-item active" data-view="overview">
+          <span class="nav-icon">◫</span><span>Overview</span>
+        </button>
+        <button class="nav-item" data-view="tasks">
+          <span class="nav-icon">☰</span><span>Tasks</span>
+        </button>
+        <button class="nav-item" data-view="predictions">
+          <span class="nav-icon">⚠</span><span>Predictions</span>
+        </button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="user-email" id="userEmail">—</div>
+        <button class="logout-btn" id="logoutBtn" type="button">Sign out</button>
+        <a class="back-link" href="index.html">← Back to site</a>
+        <div class="api-status" id="apiStatus">
+          <span class="dot"></span><span id="apiStatusText">Connecting…</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="scrim" id="scrim"></div>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+        <div class="topbar-titles">
+          <h1 id="pageTitle">Overview</h1>
+          <p class="subtitle" id="pageSubtitle">Your day, at a glance.</p>
+        </div>
+        <div class="topbar-actions">
+          <span class="today" id="todayLabel"></span>
+          <button class="btn btn-primary" id="newTaskBtn">＋ New task</button>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Overview view -->
+        <section class="view active" id="view-overview">
+          <div class="stat-grid" id="statGrid"></div>
+          <div class="overview-cols">
+            <section class="card">
+              <div class="card-head">
+                <h2>Today's focus</h2>
+                <span class="card-hint" id="focusCount"></span>
+              </div>
+              <ul class="task-list" id="todayList"></ul>
+            </section>
+            <section class="card">
+              <div class="card-head">
+                <h2>Upcoming</h2>
+                <span class="card-hint" id="upcomingCount"></span>
+              </div>
+              <ul class="task-list" id="upcomingList"></ul>
+            </section>
+          </div>
+
+          <section class="card risk-card">
+            <div class="card-head">
+              <h2>Risk signals</h2>
+              <button class="card-link" data-view="predictions">View all →</button>
+            </div>
+            <ul class="task-list" id="riskList"></ul>
+          </section>
+        </section>
+
+        <!-- Tasks view -->
+        <section class="view" id="view-tasks">
+          <div class="toolbar">
+            <div class="search-wrap">
+              <span class="search-icon">⌕</span>
+              <input type="search" id="searchInput" placeholder="Search tasks…" autocomplete="off">
+            </div>
+            <select id="statusFilter" aria-label="Filter by status">
+              <option value="all">All statuses</option>
+              <option value="todo">To do</option>
+              <option value="in_progress">In progress</option>
+              <option value="done">Done</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+            <select id="priorityFilter" aria-label="Filter by priority">
+              <option value="all">All priorities</option>
+              <option value="urgent">Urgent</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+            <select id="sortSelect" aria-label="Sort tasks">
+              <option value="due">Sort: due date</option>
+              <option value="priority">Sort: priority</option>
+              <option value="created">Sort: newest</option>
+            </select>
+          </div>
+          <section class="card">
+            <div class="card-head">
+              <h2 id="taskListTitle">All tasks</h2>
+              <span class="card-hint" id="taskCount"></span>
+            </div>
+            <ul class="task-list" id="taskList"></ul>
+          </section>
+        </section>
+
+        <!-- Predictions view -->
+        <section class="view" id="view-predictions">
+          <div class="toolbar">
+            <span class="toolbar-note">Rule-based &amp; statistical signals from your task history.</span>
+            <button class="btn btn-ghost" id="refreshPredictionsBtn">↻ Refresh</button>
+          </div>
+          <div id="predictionAnalytics"></div>
+          <ul class="prediction-list" id="predictionsList"></ul>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Task create/edit modal -->
+  <div class="modal" id="taskModal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <h2 id="modalTitle">New task</h2>
+        <button class="icon-btn" data-close aria-label="Close">✕</button>
+      </div>
+      <form id="taskForm" novalidate>
+        <label class="field">
+          <span>Title <em>*</em></span>
+          <input type="text" id="taskTitle" placeholder="What needs doing?" maxlength="300" required>
+        </label>
+        <label class="field">
+          <span>Description</span>
+          <textarea id="taskDescription" rows="3" maxlength="5000" placeholder="Add context, notes, or links…"></textarea>
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>Status</span>
+            <select id="taskStatus">
+              <option value="todo">To do</option>
+              <option value="in_progress">In progress</option>
+              <option value="done">Done</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Priority</span>
+            <select id="taskPriority">
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </label>
+        </div>
+        <div class="field-row">
+          <label class="field">
+            <span>Due date &amp; time</span>
+            <input type="datetime-local" id="taskDue">
+          </label>
+          <label class="field">
+            <span>Estimated time (minutes)</span>
+            <input type="number" id="taskEstimate" min="1" max="10080" placeholder="e.g. 45">
+          </label>
+        </div>
+        <label class="field">
+          <span>Tags <small>(comma separated)</small></span>
+          <input type="text" id="taskTags" placeholder="work, focus, urgent">
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveTaskBtn">Create task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>

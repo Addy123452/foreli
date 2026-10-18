@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# SQLite data
+backend/foreli.db
+backend/foreli.db-wal
+backend/foreli.db-shm
+
+# Secrets (never commit)
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+node_modules/
+
+# Editor/OS
+.DS_Store
+Thumbs.db

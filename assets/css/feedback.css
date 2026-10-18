@@ -1,0 +1,32 @@
+/* Prediction feedback controls (Phase 5 feedback loop). */
+.pred-feedback {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+  flex-wrap: wrap;
+}
+.fb-note { font-size: 11.5px; color: var(--muted-2); margin-right: auto; }
+.fb-note b { color: var(--purple-strong); font-weight: 600; }
+.fb-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.fb-btn {
+  font-size: 11.5px;
+  padding: 6px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: none;
+  cursor: pointer;
+  transition: all .15s;
+}
+.fb-btn:hover { border-color: rgba(167, 139, 250, .5); color: #fff; }
+.fb-btn.selected { background: rgba(167, 139, 250, .18); border-color: rgba(167, 139, 250, .5); color: #fff; }
+.fb-btn[data-feedback="accurate"].selected { background: rgba(94, 224, 160, .16); border-color: rgba(94, 224, 160, .5); }
+.fb-btn[data-feedback="partial"].selected { background: rgba(245, 194, 107, .16); border-color: rgba(245, 194, 107, .5); }
+.fb-btn[data-feedback="inaccurate"].selected { background: rgba(255, 123, 138, .16); border-color: rgba(255, 123, 138, .5); }
+
+@media (max-width: 560px) {
+  .pred-feedback { align-items: flex-start; flex-direction: column; }
+}

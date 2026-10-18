@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>Sign in — Foreli</title>
+  <meta name="description" content="Sign in to Foreli to see what's ahead.">
+  <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="auth-page">
+  <div class="auth-glow"></div>
+  <main class="auth-card">
+    <a class="auth-brand" href="index.html">foreli<span>.</span></a>
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-sub">Sign in to see what's ahead.</p>
+
+    <form data-auth-mode="login" novalidate>
+      <div class="auth-error" id="authError" role="alert" hidden></div>
+
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" name="email" autocomplete="email"
+               placeholder="you@example.com" required>
+      </div>
+
+      <div class="field">
+        <label for="login-password">Password</label>
+        <span class="password-wrap">
+          <input id="login-password" type="password" name="password"
+                 autocomplete="current-password" placeholder="••••••••" required>
+          <button type="button" class="toggle-pw" data-toggle-password
+                  aria-label="Show password">Show</button>
+        </span>
+      </div>
+
+      <div class="auth-actions">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </div>
+    </form>
+
+    <p class="auth-switch">New to Foreli? <a href="register.html">Create an account</a></p>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
