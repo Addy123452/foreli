@@ -163,6 +163,17 @@ body.auth-page {
   color: #ffb3bc;
 }
 
+.auth-notice {
+  background: rgba(245, 194, 107, .1);
+  border: 1px solid rgba(245, 194, 107, .4);
+  color: #f5c26b;
+  border-radius: 10px;
+  padding: 10px 13px;
+  font-size: 12.5px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
 @media (max-width: 480px) {
   .auth-card { padding: 26px 20px; }
 }

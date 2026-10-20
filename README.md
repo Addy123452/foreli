@@ -21,6 +21,13 @@ when there is a calibrated historical basis (never an arbitrary confidence).
 Feedback (accurate/partial/inaccurate) is stored and powers the analytics
 accuracy metric; no model retraining is claimed.
 
+## Live preview
+
+- **Static site (GitHub Pages):** <https://addy123452.github.io/foreli/>
+  The landing page and UI are live. The interactive app (register / login /
+  dashboard) requires the backend to be deployed separately — see *Deployment*.
+  Login pages show a "static preview" notice when hosted without the API.
+
 ## Requirements
 
 - Python 3.11+ with `fastapi` and `uvicorn` (see `backend/requirements.txt`).

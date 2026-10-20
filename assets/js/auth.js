@@ -8,6 +8,17 @@
   var form = document.querySelector('form[data-auth-mode]');
   if (!form) return;
 
+  // Static-preview notice when hosted without the backend (e.g., GitHub Pages).
+  if (window.location.hostname.indexOf('github.io') !== -1) {
+    var card = document.querySelector('.auth-card');
+    if (card) {
+      var notice = document.createElement('div');
+      notice.className = 'auth-notice';
+      notice.textContent = 'Static preview — the Foreli backend is not hosted here yet. See the README for deployment.';
+      card.insertBefore(notice, form);
+    }
+  }
+
   var mode = form.getAttribute('data-auth-mode'); // 'login' | 'register'
   var errorBox = document.getElementById('authError');
   var submitBtn = form.querySelector('button[type="submit"]');
