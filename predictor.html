@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>Foreli Predictor — Sports Match Predictions</title>
+  <meta name="description" content="Transparent, explainable sports match predictions. Demo data only — not affiliated with any bookmaker.">
+  <link rel="stylesheet" href="assets/css/predictor.css">
+</head>
+<body>
+  <div class="glow"></div>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="predictor.html">foreli <span>predictor</span></a>
+      <nav class="nav-links">
+        <a href="#predictions">Predictions</a>
+        <a href="#how">How it works</a>
+        <a href="#responsible">Responsible betting</a>
+        <span class="demo-badge">DEMO</span>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <div class="eyebrow"><span class="dot"></span> Transparent match analytics</div>
+      <h1>Match predictions,<br><span class="gradient-text">explained.</span></h1>
+      <p class="hero-copy">
+        Foreli Predictor turns team-strength signals into clear 1X2 probabilities
+        and shows you <em>why</em> — no black boxes, no “guaranteed wins”.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#predictions">See predictions</a>
+        <a class="btn ghost" href="#how">How it works</a>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="demo-banner">
+        <strong>⚠ Demo mode.</strong>
+        All fixtures below are fictional, and the probabilities are illustrative
+        model output — <strong>not</strong> real predictions. Connect a live data
+        provider and trained model to enable real predictions. You can lose money
+        betting; this is not betting advice.
+      </div>
+    </section>
+
+    <section class="container" id="predictions">
+      <div class="section-head">
+        <h2>Demo predictions</h2>
+        <p>Fictional fixtures · 1X2 probabilities · confidence · reasoning</p>
+      </div>
+      <div class="match-grid" id="matchGrid"></div>
+      <p class="disclaimer">
+        Probabilities are estimates from a simple, transparent model. They do not
+        guarantee any outcome. Not affiliated with 1xBet or any bookmaker.
+      </p>
+    </section>
+
+    <section class="container" id="how">
+      <div class="section-head">
+        <h2>How it works</h2>
+        <p>A deliberately simple, explainable scoring model.</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <div class="step-icon">1</div>
+          <h3>Team strength</h3>
+          <p>Each team has an estimated strength value (home side gets a small home-advantage boost).</p>
+        </article>
+        <article class="step">
+          <div class="step-icon">2</div>
+          <h3>Three-way scoring</h3>
+          <p>Home, draw, and away scores are compared with a softmax, producing probabilities that sum to 1.</p>
+        </article>
+        <article class="step">
+          <div class="step-icon">3</div>
+          <h3>Explain it</h3>
+          <p>Every card shows the key factors behind the estimate — so you can judge it, not just trust it.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="responsible">
+      <div class="responsible-card">
+        <h2>Responsible prediction</h2>
+        <ul>
+          <li><strong>18+ only.</strong> Never bet more than you can afford to lose.</li>
+          <li>No model predicts football reliably enough to guarantee profit. Treat these as estimates.</li>
+          <li>If gambling is harming you or someone you know, seek support — e.g. BeGambleAware.org or GamCare.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© 2026 Foreli Predictor · demo data · not affiliated with any bookmaker</span>
+      <div class="footer-links">
+        <a href="index.html">Foreli home</a>
+        <a href="#responsible">Responsible betting</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/predictor.js"></script>
+</body>
+</html>

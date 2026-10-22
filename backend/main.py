@@ -163,6 +163,12 @@ def serve_reset():
     return FileResponse(ROOT / "reset.html")
 
 
+@app.get("/predictor", include_in_schema=False)
+@app.get("/predictor.html", include_in_schema=False)
+def serve_predictor():
+    return FileResponse(ROOT / "predictor.html")
+
+
 @app.get("/assets/{file_path:path}", include_in_schema=False)
 def serve_assets(file_path: str):
     target = (ASSETS / file_path).resolve()
