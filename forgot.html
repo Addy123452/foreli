@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>Forgot password — Foreli</title>
+  <meta name="description" content="Reset your Foreli password.">
+  <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="auth-page">
+  <div class="auth-glow"></div>
+  <main class="auth-card">
+    <a class="auth-brand" href="index.html">foreli<span>.</span></a>
+    <h1 class="auth-title">Forgot password?</h1>
+    <p class="auth-sub">Enter your account email and a reset link will be generated.</p>
+
+    <form data-auth-mode="forgot" novalidate>
+      <div class="auth-error" id="authError" role="alert" hidden></div>
+      <div class="auth-result" id="authResult" hidden></div>
+
+      <div class="field">
+        <label for="forgot-email">Email</label>
+        <input id="forgot-email" type="email" name="email" autocomplete="email"
+               placeholder="you@example.com" required>
+      </div>
+
+      <div class="auth-actions">
+        <button type="submit" class="btn btn-primary">Send reset link</button>
+      </div>
+    </form>
+
+    <p class="auth-switch"><a href="login.html">← Back to sign in</a></p>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/reset.js"></script>
+</body>
+</html>

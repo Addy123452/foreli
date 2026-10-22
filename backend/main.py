@@ -151,6 +151,18 @@ def serve_register():
     return FileResponse(ROOT / "register.html")
 
 
+@app.get("/forgot", include_in_schema=False)
+@app.get("/forgot.html", include_in_schema=False)
+def serve_forgot():
+    return FileResponse(ROOT / "forgot.html")
+
+
+@app.get("/reset", include_in_schema=False)
+@app.get("/reset.html", include_in_schema=False)
+def serve_reset():
+    return FileResponse(ROOT / "reset.html")
+
+
 @app.get("/assets/{file_path:path}", include_in_schema=False)
 def serve_assets(file_path: str):
     target = (ASSETS / file_path).resolve()

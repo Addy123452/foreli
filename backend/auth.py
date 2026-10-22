@@ -55,6 +55,44 @@ def create_session(db, user_id: int) -> str:
     return token
 
 
+RESET_MINUTES = 30
+
+
+def _hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def create_reset_token(db, user_id: int) -> str:
+    """Create a single-use, expiring reset token; only its hash is stored."""
+    token = secrets.token_urlsafe(32)
+    now = datetime.now()
+    db.execute(
+        "INSERT INTO password_resets (user_id, token_hash, expires_at, used, created_at) "
+        "VALUES (?, ?, ?, 0, ?)",
+        (
+            user_id,
+            _hash_token(token),
+            (now + timedelta(minutes=RESET_MINUTES)).isoformat(timespec="seconds"),
+            now.isoformat(timespec="seconds"),
+        ),
+    )
+    return token
+
+
+def consume_reset_token(db, token: str):
+    """Validate and consume a reset token; return user_id or None."""
+    row = db.execute(
+        "SELECT * FROM password_resets WHERE token_hash = ?", (_hash_token(token),)
+    ).fetchone()
+    if row is None or row["used"]:
+        return None
+    expires = parse_dt(row["expires_at"])
+    if expires is None or expires < datetime.now():
+        return None
+    db.execute("UPDATE password_resets SET used = 1 WHERE id = ?", (row["id"],))
+    return row["user_id"]
+
+
 def get_current_user(request: Request, db=Depends(get_db)):
     """FastAPI dependency: resolve the authenticated user or raise 401."""
     token = request.cookies.get(COOKIE_NAME)

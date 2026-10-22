@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>Reset password — Foreli</title>
+  <meta name="description" content="Set a new Foreli password.">
+  <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="auth-page">
+  <div class="auth-glow"></div>
+  <main class="auth-card">
+    <a class="auth-brand" href="index.html">foreli<span>.</span></a>
+    <h1 class="auth-title">Set a new password</h1>
+    <p class="auth-sub">Choose a new password for your account.</p>
+
+    <form data-auth-mode="reset" novalidate>
+      <div class="auth-error" id="authError" role="alert" hidden></div>
+      <div class="auth-result" id="authResult" hidden></div>
+      <input type="hidden" name="token" id="reset-token">
+
+      <div class="field">
+        <label for="reset-password">New password</label>
+        <span class="password-wrap">
+          <input id="reset-password" type="password" name="password"
+                 autocomplete="new-password" placeholder="At least 8 characters" required>
+          <button type="button" class="toggle-pw" data-toggle-password
+                  aria-label="Show password">Show</button>
+        </span>
+      </div>
+
+      <div class="field">
+        <label for="reset-confirm">Confirm new password</label>
+        <span class="password-wrap">
+          <input id="reset-confirm" type="password" name="confirm"
+                 autocomplete="new-password" placeholder="Repeat your password" required>
+          <button type="button" class="toggle-pw" data-toggle-password
+                  aria-label="Show password">Show</button>
+        </span>
+      </div>
+
+      <div class="auth-actions">
+        <button type="submit" class="btn btn-primary">Set new password</button>
+      </div>
+    </form>
+
+    <p class="auth-switch"><a href="login.html">← Back to sign in</a></p>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/reset.js"></script>
+</body>
+</html>

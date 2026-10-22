@@ -95,3 +95,22 @@ class Credentials(BaseModel):
         if "@" not in value or "." not in value.split("@")[-1]:
             raise ValueError("Enter a valid email address")
         return value
+
+
+class ForgotIn(BaseModel):
+    email: str = Field(min_length=3, max_length=254)
+
+    @field_validator("email", mode="before")
+    @classmethod
+    def _normalize_email(cls, value):
+        if not isinstance(value, str):
+            return value
+        value = value.strip().lower()
+        if "@" not in value or "." not in value.split("@")[-1]:
+            raise ValueError("Enter a valid email address")
+        return value
+
+
+class ResetIn(BaseModel):
+    token: str = Field(min_length=10, max_length=300)
+    password: str = Field(min_length=8, max_length=200)

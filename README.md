@@ -104,8 +104,11 @@ python -m backend.test_phase7_live
 | POST | `/api/auth/logout` | End session |
 | GET | `/api/auth/me` | Current user (401 if not signed in) |
 
-**Not implemented:** password reset and email verification (they require an email
-service, which is not configured).
+**Password reset:** `POST /api/auth/forgot` generates a single-use, 30-minute
+token (stored hashed) and `POST /api/auth/reset` sets a new password and signs
+out all existing sessions. Email delivery is not configured, so the reset link is
+written to the server log and shown locally at `/forgot.html`. Email verification
+is not implemented.
 
 ## Environment variables
 

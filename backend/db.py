@@ -74,6 +74,19 @@ MIGRATIONS = [
     );
     CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
     """,
+    # v4: password reset tokens
+    """
+    CREATE TABLE IF NOT EXISTS password_resets (
+        id         INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id    INTEGER NOT NULL,
+        token_hash TEXT    NOT NULL UNIQUE,
+        expires_at TEXT    NOT NULL,
+        used       INTEGER NOT NULL DEFAULT 0,
+        created_at TEXT    NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    );
+    CREATE INDEX IF NOT EXISTS idx_password_resets_user ON password_resets(user_id);
+    """,
 ]
 
 
