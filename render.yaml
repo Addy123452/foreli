@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: foreli-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: FORELI_DB_PATH
+        value: /data/foreli.db
+      - key: FORELI_COOKIE_SECURE
+        value: "1"
+      - key: FORELI_CORS_ORIGINS
+        sync: false
+    disk:
+      name: foreli-data
+      mountPath: /data
+      sizeGB: 1

@@ -132,3 +132,22 @@ Foreli is a static frontend plus a separate FastAPI/SQLite backend.
   3. Set `window.FORELI_API_BASE` in `assets/js/config.js`.
   4. Deploy the frontend to Vercel and the backend to the persistent host.
   5. Verify `/api/health`, register, login, and a protected request.
+
+## One-container deploy (Render / Railway / Fly.io)
+
+The `Dockerfile` builds a single container that runs the FastAPI backend **and**
+serves the static frontend from the same origin, so the whole app works at one
+URL (no separate frontend host needed).
+
+- **Render:** `render.yaml` is a ready blueprint — create a new Blueprint, point
+  it at this repo, and deploy. A **persistent disk** mounted at `/data` is required
+  so `backend/foreli.db` survives restarts (on ephemeral free plans, data resets).
+- **Railway / Fly.io:** use the `Dockerfile` / `Procfile`, mount a volume at
+  `/data`, and set `FORELI_DB_PATH=/data/foreli.db`.
+- **Environment:** set `FORELI_COOKIE_SECURE=1` (HTTPS). If you host the frontend
+  separately (e.g. GitHub Pages), also set `FORELI_CORS_ORIGINS` to that origin
+  and point `assets/js/config.js` at this backend URL.
+
+> **Note:** Foreli is currently single-tenant — all accounts share the same task
+> data. Do not share a public deployment with other people until per-user data
+> scoping is implemented.

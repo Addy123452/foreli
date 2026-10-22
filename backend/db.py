@@ -4,10 +4,13 @@ A small, explicit migration system based on ``PRAGMA user_version`` keeps the
 schema easy to evolve without an external migration framework. The database
 file lives next to this module at ``backend/foreli.db``.
 """
+import os
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).resolve().parent / "foreli.db"
+DB_PATH = Path(
+    os.environ.get("FORELI_DB_PATH", Path(__file__).resolve().parent / "foreli.db")
+)
 
 # Each entry is a migration applied in order. Entry index 0 -> user_version 1,
 # entry index 1 -> user_version 2, and so on.

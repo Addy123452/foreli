@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.git/
+.venv/
+venv/
+node_modules/
+.env
+.env.*
+!.env.example
+backend/foreli.db
+backend/foreli.db-wal
+backend/foreli.db-shm
+README.md
